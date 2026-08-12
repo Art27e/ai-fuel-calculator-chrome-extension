@@ -4,17 +4,17 @@
   "version": "1.0.0",
   "manifest_version": 3,
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "popup/index.html",
     "default_icon": "icons/icon.png"
   },
-  "options_page": "settings.html",
+  "options_page": "popup/settings.html",
   "permissions": ["storage"],
   "host_permissions": [
     "http://localhost:8080/*",
     "http://127.0.0.1:8080/*"
   ],
   "background": {
-    "service_worker": "index.js",
+    "service_worker": "popup/index.js",
     "type": "module"
   }
 }

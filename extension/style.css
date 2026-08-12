@@ -165,7 +165,7 @@ input:focus {
   border: 1.5px solid rgba(180, 255, 100, 0.6);
   color: rgb(180, 255, 100);
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 8px 5px;
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s ease;
