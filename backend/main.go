@@ -19,13 +19,15 @@ type FuelRequest struct {
 
 func main() {
 	// Load values from env
+	var apiKey string
 	if err := godotenv.Load("key.env"); err != nil {
-		log.Println("Warning: .env file is not found, Claude API is not working!")
+		log.Println("WARNING: key file is not found, Claude API is not working!\nReading from system environment variables...")
 	}
 
-	apiKey := os.Getenv("ANTHROPIC_API_KEY")
+	apiKey = os.Getenv("ANTHROPIC_API_KEY")
+	
 	if apiKey == "" {
-		log.Fatal("ANTHROPIC_API_KEY is not installed")
+		log.Fatal("FATAL: ANTHROPIC_API_KEY is missing in environment variables!")
 	}
 
 	router := gin.Default()
@@ -93,7 +95,7 @@ func main() {
 			return
 		}
 
-		httpReq.Header.Set("Content-Type","application/json")
+		httpReq.Header.Set("Content-Type", "application/json")
 		httpReq.Header.Set("x-api-key", apiKey)
 		httpReq.Header.Set("anthropic-version", "2023-06-01")
 
@@ -115,9 +117,9 @@ func main() {
 	})
 
 	port := os.Getenv("PORT")
-		if port == "" {
-			port = "8080"
-		}
-		log.Println("Server started at" + port + "...")
-		router.Run(":" + port)
+	if port == "" {
+		port = "8080"
+	}
+	log.Println("Server started at" + port + "...")
+	router.Run(":" + port)
 }
