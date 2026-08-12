@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <title>fuel calc</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="header">
+        <!-- Menu button -->
+        <span class="menu-icon" id="menuBtn">☰</span>
+        <!-- Menu button pop-up -->
+        <div class="dropdown" id="dropdown">
+          <a href="/index.html">Main Page</a>
+          <a href="/settings.html">Settings</a>
+        </div>
+        <p>fuel calc</p>
+      </div>
+      <div class="calculations">
+        <p class="fuel-price-text">Enter fuel price (euro/l):</p>
+        <div class="input-row">
+          <input
+            type="number"
+            id="fuel-price"
+            placeholder="0.00"
+            step="0.01"
+            min="0.01"
+          />
+          <button class="ai-btn" id="ai-btn">✨ Ask Claude*</button>
+        </div>
+        <p class="avg-consumption-text">Average consumption (l/100 km):</p>
+        <input
+          type="number"
+          id="average-consumption"
+          placeholder="0.00"
+          step="0.10"
+          min="0.10"
+        />
+        <p class="trip-distance-text">Trip Distance (km):</p>
+        <input
+          type="number"
+          id="trip-distance"
+          placeholder="0.00"
+          step="1"
+          min="1"
+        />
+        <button class="btn-gen" id="btn-gen">Calculate</button>
+      </div>
+      <div class="saved"></div>
+    </div>
+    <div class="message-window">
+      <p id="msg-for-user">
+        * Claude AI fetches the latest available fuel price for the selected country via web
+        search.<br>
+        Estonia is by Default
+      </p>
+    </div>
+    <script src="index.js" type="module"></script>
+    <script src="menu.js" type="module"></script>
+  </body>
+</html>

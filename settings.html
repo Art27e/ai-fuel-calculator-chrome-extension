@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <title>fuel calc</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="header">
+        <!-- Menu button -->
+        <span class="menu-icon" id="menuBtn">☰</span>
+        <!-- Menu button pop-up -->
+        <div class="dropdown" id="dropdown">
+          <a href="/index.html">Main Page</a>
+          <a href="/settings.html">Settings</a>
+        </div>
+        <p>fuel calc</p>
+      </div>
+      <div class="calculations">
+        <p class="country">Enter country:</p>
+        <div class="input-row">
+          <input type="text" id="country-input" />
+          <p class="fuel-type">Select fuel type:</p>
+          <div class="input-row">
+            <select id="fuel-type">
+              <option value="petrol">Petrol</option>
+              <option value="diesel">Diesel</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-gen" id="btn-gen">Save</button>
+      </div>
+    </div>
+    <div class="message-window">
+      <p id="msg-for-user">Message</p>
+    </div>
+    <script src="settings.js" type="module"></script>
+    <script src="menu.js" type="module"></script>
+  </body>
+</html>
