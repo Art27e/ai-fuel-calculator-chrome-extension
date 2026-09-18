@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -21,6 +22,7 @@ type FuelRequest struct {
 func main() {
 
 	today := time.Now().Local().Format("2006-01-02")
+	fmt.Println(today)
 	// Load values from env
 	var apiKey string
 	if err := godotenv.Load("key.env"); err != nil {
@@ -67,7 +69,8 @@ func main() {
 			"model":      "claude-haiku-4-5-20251001",
 			"max_tokens": 200,
 			"system": `You are fuel price assistant.
-			IMPORTANT: Respond with ONLY a JSON object. No thinking, no steps, no explanations.
+			IMPORTANT: Always respond with JSON. No thinking, no steps, no explanations.
+			Never include explanatory text outside the JSON.
 			You may use approximate conversion if needed.
 			{"price": 1.234, "source": "source_name", "date": "date found"}
 			If not found: {"price": null, "source": "not found", "date": ""}`,
@@ -81,7 +84,7 @@ func main() {
 			"messages": []map[string]string{
 				{
 					"role":    "user",
-					"content": "What is the current price of " + req.FuelType + " in " + req.Country + "at" + today + " in euros per liter? Use web-search, find fresh data basing on local web-sites for today date. Return JSON only.",
+					"content": "What is the current " + req.FuelType + " price " + "in " + req.Country + " in euros according to local web-sites. If you could not find actual price for 7 days, then use local web-sites and web-search. Always prefer the most fresh data. ALWAYS respond only with price in JSON. No words, no steps, no sentences.",
 				},
 			},
 		}
@@ -116,6 +119,8 @@ func main() {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read API response"})
 			return
 		}
+
+		fmt.Println(string(respBody))
 
 		c.Data(resp.StatusCode, "application/json", respBody)
 	})

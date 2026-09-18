@@ -38,6 +38,7 @@ async function fetchFuelPrice() {
     console.log('sending request to Go backend'); // if this doesn't log, the issue is before the fetch call
     const response = await fetch(
       'https://ai-fuel-calculator-chrome-extension-apt.fly.dev/api/fuel-price',
+      //'http://localhost:8080/api/fuel-price', // for tests
       {
         method: 'POST',
         headers: {
