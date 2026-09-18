@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -18,6 +19,8 @@ type FuelRequest struct {
 }
 
 func main() {
+
+	today := time.Now().Local().Format("2006-01-02")
 	// Load values from env
 	var apiKey string
 	if err := godotenv.Load("key.env"); err != nil {
@@ -74,10 +77,11 @@ func main() {
 					"name": "web_search",
 				},
 			},
+			"temperature": 0.00,
 			"messages": []map[string]string{
 				{
 					"role":    "user",
-					"content": "What is the current price of " + req.FuelType + " in " + req.Country + " today in euros per liter? Search for it and return JSON only.",
+					"content": "What is the current price of " + req.FuelType + " in " + req.Country + "at" + today + " in euros per liter? Use web-search, find fresh data basing on local web-sites for today date. Return JSON only.",
 				},
 			},
 		}

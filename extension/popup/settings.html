@@ -25,17 +25,16 @@
         <p>fuel calc</p>
       </div>
       <div class="calculations">
-        <p class="country">Enter country:</p>
-        <div class="input-row">
-          <input type="text" id="country-input" />
-          <p class="fuel-type">Select fuel type:</p>
-          <div class="input-row">
-            <select id="fuel-type">
-              <option value="petrol">Petrol</option>
-              <option value="diesel">Diesel</option>
-            </select>
-          </div>
-        </div>
+        <p class="country">Select country:</p>
+        <select id="countries-list" class="custom-select">
+          <option value="" disabled selected>Select country</option>
+        </select>
+        <p class="fuel-type">Select fuel:</p>
+        <select id="fuel-type" class="custom-select">
+          <option value="petrol">Petrol 95</option>
+          <option value="petrol">Petrol 98</option>
+          <option value="diesel">Diesel</option>
+        </select>
         <button class="btn-gen" id="btn-gen">Save</button>
       </div>
     </div>

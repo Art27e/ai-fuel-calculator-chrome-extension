@@ -30,39 +30,37 @@ async function fetchFuelPrice() {
   const fuelType = selectedFuelType || 'Diesel';
   const country = selectedCountry || 'Estonia';
 
-  console.log(fuelType, country);
-
   fetchBtn.disabled = true;
   fetchBtn.innerHTML = '<span class="spinner"></span>Searching...';
   fetchedPrice = null; // reset fetched price before new request
 
   try {
     console.log('sending request to Go backend'); // if this doesn't log, the issue is before the fetch call
-    const response = await fetch('https://ai-fuel-calculator-chrome-extension-apt.fly.dev/api/fuel-price', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://ai-fuel-calculator-chrome-extension-apt.fly.dev/api/fuel-price',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fuelType: fuelType,
+          country: country,
+        }),
       },
-      body: JSON.stringify({
-        fuelType: fuelType,
-        country: country,
-      }),
-    });
+    );
 
     console.log('response status:', response.status); // watch the response status code to see if the request was successful
     if (!response.ok) {
-      throw new Error(`Server returned status ${response.status}`)
+      throw new Error(`Server returned status ${response.status}`);
     }
-    
-    const data = await response.json(); // parse the JSON response from the API
-    console.log('data:', data); // watch the full response data to understand its structure and debug if needed
+    const anthropicApiData = await response.json(); // parse the JSON response from the API
 
     // search for the text block in the response which contains the answer from Claude
-    const textBlock = data.content.find((b) => b.type === 'text');
+    const textBlock = anthropicApiData.content.find((b) => b.type === 'text');
     if (!textBlock) throw new Error('No text response from Claude');
 
     const clean = textBlock.text.replace(/```json|```/g, '').trim(); // remove any code block formatting if present, and trim whitespace
-    console.log(clean);
 
     // take the JSON part from the response and parse it to extract the price
     const jsonMatch = clean.match(/\{.*\}/s);
@@ -76,7 +74,6 @@ async function fetchFuelPrice() {
 
     fetchedPrice = parsed.price; // save the fetched price to the global variable
     fuelPrice.value = parsed.price.toFixed(3);
-    console.log(fetchedPrice);
   } catch (err) {
     // if any error occurs during the fetch or parsing, log it and show an error message
     console.error('Error fetching fuel price:', err);
